@@ -164,6 +164,8 @@ const deltaTypes = {
 
 export default function SalesPeopleTable() {
   const [recognizedText, setRecognizedText] = useState("");
+  const [text, setText] = useState("");
+  const [result, setResult] = useState("");
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -178,49 +180,91 @@ export default function SalesPeopleTable() {
   const recognizeText = (imageData) => {
     Tesseract.recognize(imageData, "eng")
       .then((result) => {
+        console.log(result.data);
         setRecognizedText(result.data.text);
       })
       .catch((error) => {
         console.error("Error during text recognition:", error);
       });
   };
-  const [selectedStatus, setSelectedStatus] = useState("all");
-  const [selectedNames, setSelectedNames] = useState([]);
+  // Define the Braille alphabet
+  const brailleAlphabet = {
+    a: "⠁",
+    b: "⠃",
+    c: "⠉",
+    d: "⠙",
+    e: "⠑",
+    f: "⠋",
+    g: "⠛",
+    h: "⠓",
+    i: "⠊",
+    j: "⠚",
+    k: "⠅",
+    l: "⠇",
+    m: "⠍",
+    n: "⠝",
+    o: "⠕",
+    p: "⠏",
+    q: "⠟",
+    r: "⠗",
+    s: "⠎",
+    t: "⠞",
+    u: "⠥",
+    v: "⠧",
+    w: "⠺",
+    x: "⠭",
+    y: "⠽",
+    z: "⠵",
+  };
 
-  const isSalesPersonSelected = (salesPerson) =>
-    (salesPerson.status === selectedStatus || selectedStatus === "all") &&
-    (selectedNames.includes(salesPerson.name) || selectedNames.length === 0);
+  // Function to convert a string to Braille
+  function convertToBraille(text) {
+    let braille = "";
+    for (let i = 0; i < text.length; i++) {
+      const char = text[i].toLowerCase();
+      if (brailleAlphabet[char]) {
+        braille += brailleAlphabet[char];
+      } else {
+        braille += char;
+      }
+    }
+    return braille;
+  }
 
   return (
     <div className="m-2 p-4 ">
-      {/* <TabGroup>
-        <TabList>
-          <Tab>Home</Tab>
-          <Tab>Users</Tab>
-        </TabList>
-      </TabGroup>
-      <TabPanel ></TabPanel> */}
       <h2 className="m-4">Braiile Language Converter</h2>
-      <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-2">
-        <Col numColSpan={1} numColSpanLg={2}>
+      <Grid numItems={1} numItemsSm={2} numItemsLg={2} className="gap-2">
+        <Col numColSpan={1} numColSpanLg={1}>
           <Card className={"hover:shadow-sm shadow-grey-200"}>
             <Metric className="m-4">Text</Metric>
             <div className="inline-flex w-full">
-              <TextInput type="text" inputMode="text" />
-              <button className="bg-[lightgreen]">
+              <TextInput
+                type="text"
+                inputMode="text"
+                onChange={(e) => {
+                  setText(e.target.value);
+                  console.log(e.target.value);
+                }}
+              />
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  const inputText = "Hello, World!";
+                  const brailleText = convertToBraille(text);
+                  setResult(brailleText);
+                  console.log(brailleText);
+                }}
+                className="bg-[lightgreen]"
+              >
                 <RefreshIcon height={30} color="#ffd" />
               </button>
             </div>
           </Card>
         </Col>
         <Card>
-          <Metric className="m-4">Text</Metric>
-          <div className="inline-flex w-full">
-            <TextInput type="text" inputMode="text" />
-            <button className="bg-[lightgreen]">
-              <RefreshIcon height={30} color="#ffd" />
-            </button>
-          </div>
+          <Metric className="m-4">Result</Metric>
+          <div className="inline-flex w-full text-slate-50">{result}</div>
         </Card>
         {/* <Card className={"hover:shadow-sm shadow-grey-200"}>
           <Text title="Your account balance">Users</Text>
