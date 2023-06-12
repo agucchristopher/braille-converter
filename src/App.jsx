@@ -29,6 +29,7 @@ import {
   AreaChart,
   LineChart,
   BarChart,
+  TextInput,
 } from "@tremor/react";
 import {
   ArrowNarrowUpIcon,
@@ -37,6 +38,9 @@ import {
   ChevronUpIcon,
   InformationCircleIcon,
   PresentationChartLineIcon,
+  ArrowCircleLeftIcon,
+  ArrowCircleRightIcon,
+  RefreshIcon,
 } from "@heroicons/react/solid";
 import { useState } from "react";
 // export type SalesPerson = {
@@ -174,20 +178,17 @@ export default function SalesPeopleTable() {
         </TabList>
       </TabGroup>
       <TabPanel ></TabPanel> */}
-      <h2 className="m-4">Simple Dashboard</h2>
+      <h2 className="m-4">Braiile Language Converter</h2>
       <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-2">
         <Col numColSpan={1} numColSpanLg={2}>
           <Card className={"hover:shadow-sm shadow-grey-200"}>
-            <Text title="Your account balance"> Total No. Of Users</Text>
-            <Metric>539</Metric>
-            <br />
-            <DonutChart
-              noDataText="No data!"
-              colors={["green", "pink", "red"]}
-              data={users}
-              category="value"
-              title="Users"
-            />
+            <Metric className="m-4">Text</Metric>
+            <div className="inline-flex w-full" numItems={1} numItemsLg={1}>
+              <TextInput type="text" inputMode="text" />
+              <button className="bg-[lightgreen]">
+                <RefreshIcon height={30} color="#ffd" />
+              </button>
+            </div>
           </Card>
         </Col>
         <Card>
@@ -225,57 +226,6 @@ export default function SalesPeopleTable() {
             />
           </Card>
         </Col>
-        <Card>
-          <Text>Monthly Profit</Text>
-          <Metric style={{ display: "inline-flex", justifyContent: "center" }}>
-            $ 800
-          </Metric>
-          <LineChart
-            data={monthlystats}
-            index="day"
-            categories={["profit", "loss"]}
-            colors={["green", "red"]}
-            valueFormatter={dataFormatter}
-            yAxisWidth={40}
-          />
-        </Card>
-        <Col numColSpan={1} numColSpanLg={2}>
-          <Card>
-            <Text>List Of Users</Text>
-            {/* <Metric>KPI 5</Metric> */}
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeaderCell>Name</TableHeaderCell>
-                  <TableHeaderCell>Gender</TableHeaderCell>
-                  <TableHeaderCell>Email Address</TableHeaderCell>
-                  <TableHeaderCell>Status</TableHeaderCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  {salesPeople.map(({ data, index }) => {
-                    return <p key={index}>{index}</p>;
-                  })}
-                </TableRow>
-              </TableBody>
-            </Table>
-          </Card>
-        </Col>
-
-        <Card>
-          <Text>Title</Text>
-          {/* <Metric>KPI 5</Metric> */}
-          <BarChart
-            data={stats}
-            categories={["profit", "loss"]}
-            colors={["green", "red"]}
-          />
-        </Card>
-        <Card>
-          <Text>Title</Text>
-          <Metric>KPI 5</Metric>
-        </Card>
       </Grid>{" "}
     </div>
   );
