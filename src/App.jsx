@@ -43,6 +43,7 @@ import {
   RefreshIcon,
 } from "@heroicons/react/solid";
 import { useState } from "react";
+import Tesseract from "tesseract.js";
 // export type SalesPerson = {
 //   name: string;
 //   leads: number;
@@ -162,6 +163,27 @@ const deltaTypes = {
 };
 
 export default function SalesPeopleTable() {
+  const [recognizedText, setRecognizedText] = useState("");
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        recognizeText(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+  const recognizeText = (imageData) => {
+    Tesseract.recognize(imageData, "eng")
+      .then((result) => {
+        setRecognizedText(result.data.text);
+      })
+      .catch((error) => {
+        console.error("Error during text recognition:", error);
+      });
+  };
   const [selectedStatus, setSelectedStatus] = useState("all");
   const [selectedNames, setSelectedNames] = useState([]);
 
@@ -183,7 +205,7 @@ export default function SalesPeopleTable() {
         <Col numColSpan={1} numColSpanLg={2}>
           <Card className={"hover:shadow-sm shadow-grey-200"}>
             <Metric className="m-4">Text</Metric>
-            <div className="inline-flex w-full" numItems={1} numItemsLg={1}>
+            <div className="inline-flex w-full">
               <TextInput type="text" inputMode="text" />
               <button className="bg-[lightgreen]">
                 <RefreshIcon height={30} color="#ffd" />
@@ -192,14 +214,13 @@ export default function SalesPeopleTable() {
           </Card>
         </Col>
         <Card>
-          <Text>Investments</Text>
-          <Metric>180</Metric>
-          <br />
-          <ProgressBar title="" showAnimation={true} color="green" value={95} />
-          <br />
-          <ProgressBar color="pink" showAnimation translate="yes" value={75} />
-          <br />
-          <ProgressBar color="red" showAnimation translate="yes" value={45} />
+          <Metric className="m-4">Text</Metric>
+          <div className="inline-flex w-full">
+            <TextInput type="text" inputMode="text" />
+            <button className="bg-[lightgreen]">
+              <RefreshIcon height={30} color="#ffd" />
+            </button>
+          </div>
         </Card>
         {/* <Card className={"hover:shadow-sm shadow-grey-200"}>
           <Text title="Your account balance">Users</Text>
@@ -216,14 +237,9 @@ export default function SalesPeopleTable() {
         </Card> */}
         <Col numColSpan={1} numColSpanLg={2}>
           <Card>
-            <Text>Yearly profit</Text>
-            <Metric>$ 5,000</Metric>
-            <AreaChart
-              data={stats}
-              index="month"
-              categories={["profit", "loss"]}
-              colors={["green", "red"]}
-            />
+            <Metric>Image Scanner</Metric>
+            <input type="file" accept="image/*" onChange={handleImageUpload} />
+            <div>{recognizedText}</div>
           </Card>
         </Col>
       </Grid>{" "}
