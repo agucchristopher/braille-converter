@@ -245,9 +245,11 @@ export default function SalesPeopleTable() {
                 onChange={(e) => {
                   setText(e.target.value);
                   console.log(e.target.value);
+                  const brailleText = convertToBraille(text);
+                  setResult(brailleText);
                 }}
               />
-              <button
+              {/* <button
                 onClick={(e) => {
                   e.preventDefault();
                   const inputText = "Hello, World!";
@@ -258,7 +260,7 @@ export default function SalesPeopleTable() {
                 className="bg-[lightgreen]"
               >
                 <RefreshIcon height={30} color="#ffd" />
-              </button>
+              </button> */}
             </div>
           </Card>
         </Col>
