@@ -233,7 +233,7 @@ export default function SalesPeopleTable() {
 
   return (
     <div className="m-2 p-4 ">
-      <h2 className="m-4">Braiile Language Converter</h2>
+      <Metric className="m-4">Braiile Language Converter</Metric>
       <Grid numItems={1} numItemsSm={2} numItemsLg={2} className="gap-2">
         <Col numColSpan={1} numColSpanLg={1}>
           <Card className={"hover:shadow-sm shadow-grey-200"}>
@@ -284,7 +284,12 @@ export default function SalesPeopleTable() {
         <Col numColSpan={1} numColSpanLg={2}>
           <Card>
             <Metric>Image Scanner</Metric>
-            <input type="file" accept="image/*" onChange={handleImageUpload} />
+            <input
+              className="m-4"
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+            />
             <div>{recognizedText}</div>
           </Card>
         </Col>
