@@ -112,7 +112,7 @@ export default function Home() {
               accept="image/*"
               onChange={handleImageUpload}
             />
-            <div>{recognizedText}</div>
+            <Metric>{recognizedText}</Metric>
           </Card>
         </Col>
       </Grid>{" "}
