@@ -1,34 +1,13 @@
 "use client";
 
 import {
-  Icon,
-  Table,
-  TableRow,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableBody,
-  BadgeDelta,
+
   Title,
-  Flex,
-  Select,
-  SelectItem,
-  MultiSelect,
-  MultiSelectItem,
   Text,
   Metric,
   Card,
   Grid,
   Col,
-  DonutChart,
-  Tab,
-  TabPanel,
-  TabGroup,
-  TabList,
-  ProgressBar,
-  AreaChart,
-  LineChart,
-  BarChart,
   TextInput,
 } from "@tremor/react";
 import {
@@ -44,125 +23,8 @@ import {
 } from "@heroicons/react/solid";
 import { useState } from "react";
 import Tesseract from "tesseract.js";
-// export type SalesPerson = {
-//   name: string;
-//   leads: number;
-//   sales: string;
-//   quota: string;
-//   variance: string;
-//   region: string;
-//   status: string;
-// };
-export const users = [
-  {
-    name: "Active",
-    value: 300,
-  },
-  {
-    name: "InActive",
-    value: 154,
-  },
-  {
-    name: "Disabled",
-    value: 85,
-  },
-];
-export const stats = [
-  {
-    month: "may",
-    profit: 400,
-    loss: 200,
-  },
-  {
-    month: "june",
-    profit: 250,
-    loss: 600,
-  },
-  {
-    month: "july",
-    profit: 350,
-    loss: 400,
-  },
-  {
-    month: "august",
-    profit: 550,
-    loss: 200,
-  },
-  {
-    month: "july",
-    profit: 800,
-    loss: 200,
-  },
-];
-export const monthlystats = [
-  {
-    day: 1,
-    profit: 160,
-    loss: 20,
-  },
-  {
-    day: 2,
-    profit: 100,
-    loss: 60,
-  },
-  {
-    day: 3,
-    profit: 220,
-    loss: 40,
-  },
-  {
-    day: 4,
-    profit: 60,
-    loss: 20,
-  },
-  {
-    day: 5,
-    profit: 260,
-    loss: 60,
-  },
-];
-const dataFormatter = (number) =>
-  `$${Intl.NumberFormat("us").format(number).toString()}`;
-export const salesPeople = [
-  {
-    name: "Peter Doe",
-    email: "peter@gmail.com",
-    gender: "male",
-    status: "active",
-  },
-  {
-    name: "Lena Whitehouse",
-    email: "peter@gmail.com",
-    gender: "male",
-    status: "active",
-  },
-  {
-    name: "Phil Less",
-    email: "peter@gmail.com",
-    gender: "male",
-    status: "inactive",
-  },
-  {
-    name: "John Camper",
-    email: "peter@gmail.com",
-    gender: "male",
-    status: "active",
-  },
-  {
-    name: "Max Balmoore",
-    email: "peter@gmail.com",
-    gender: "male",
-    status: "active",
-  },
-];
 
-const deltaTypes = {
-  average: "unchanged",
-  overperforming: "moderateIncrease",
-  underperforming: "moderateDecrease",
-};
-
-export default function SalesPeopleTable() {
+export default function Home() {
   const [recognizedText, setRecognizedText] = useState("");
   const [text, setText] = useState("");
   const [result, setResult] = useState("");
@@ -249,38 +111,14 @@ export default function SalesPeopleTable() {
                   setResult(brailleText);
                 }}
               />
-              {/* <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  const inputText = "Hello, World!";
-                  const brailleText = convertToBraille(text);
-                  setResult(brailleText);
-                  console.log(brailleText);
-                }}
-                className="bg-[lightgreen]"
-              >
-                <RefreshIcon height={30} color="#ffd" />
-              </button> */}
             </div>
           </Card>
         </Col>
         <Card>
           <Metric className="m-4">Result</Metric>
-          <div className="inline-flex w-full text-slate-50">{result}</div>
+          <div className="inline-flex w-full text-slate-50">
+            <Metric> {result} </Metric> </div>
         </Card>
-        {/* <Card className={"hover:shadow-sm shadow-grey-200"}>
-          <Text title="Your account balance">Users</Text>
-          <Metric>Users</Metric>
-          <br />
-          <BarChart
-            noDataText="No data!"
-            defaultValue={20}
-            colors={["green", "pink", "red"]}
-            data={users}
-            category="value"
-            title="Users"
-          />
-        </Card> */}
         <Col numColSpan={1} numColSpanLg={2}>
           <Card>
             <Metric>Image Scanner</Metric>
