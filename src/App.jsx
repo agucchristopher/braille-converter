@@ -1,26 +1,6 @@
 "use client";
 
-import {
-
-  Title,
-  Text,
-  Metric,
-  Card,
-  Grid,
-  Col,
-  TextInput,
-} from "@tremor/react";
-import {
-  ArrowNarrowUpIcon,
-  ChartPieIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-  InformationCircleIcon,
-  PresentationChartLineIcon,
-  ArrowCircleLeftIcon,
-  ArrowCircleRightIcon,
-  RefreshIcon,
-} from "@heroicons/react/solid";
+import { Title, Text, Metric, Card, Grid, Col, TextInput } from "@tremor/react";
 import { useState } from "react";
 import Tesseract from "tesseract.js";
 
@@ -44,6 +24,9 @@ export default function Home() {
       .then((result) => {
         console.log(result.data);
         setRecognizedText(result.data.text);
+        setText(recognizedText);
+        const brailleText = convertToBraille(recognizedText);
+        setResult(brailleText);
       })
       .catch((error) => {
         console.error("Error during text recognition:", error);
@@ -117,7 +100,8 @@ export default function Home() {
         <Card>
           <Metric className="m-4">Result</Metric>
           <div className="inline-flex w-full text-slate-50">
-            <Metric> {result} </Metric> </div>
+            <Metric> {result} </Metric>{" "}
+          </div>
         </Card>
         <Col numColSpan={1} numColSpanLg={2}>
           <Card>
