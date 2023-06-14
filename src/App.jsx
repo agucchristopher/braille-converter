@@ -1,6 +1,15 @@
 "use client";
 
-import { Title, Text, Metric, Card, Grid, Col, TextInput } from "@tremor/react";
+import {
+  Title,
+  Text,
+  Metric,
+  Card,
+  Grid,
+  Col,
+  TextInput,
+  Button,
+} from "@tremor/react";
 import { useState } from "react";
 import Tesseract from "tesseract.js";
 
@@ -90,7 +99,8 @@ export default function Home() {
                 onChange={(e) => {
                   setText(e.target.value);
                   console.log(e.target.value);
-                  const brailleText = convertToBraille(text);
+                  const brailleText = convertToBraille(e.target.value);
+                  console.log(brailleText);
                   setResult(brailleText);
                 }}
               />
@@ -98,21 +108,19 @@ export default function Home() {
           </Card>
         </Col>
         <Card>
-          <Metric className="m-4">Result</Metric>
+          <Metric className="m-4">Braille:</Metric>
           <div className="inline-flex w-full text-slate-50">
-            <Metric> {result} </Metric>{" "}
+            <Metric className="font-[20px] ml-4"> {result} </Metric>{" "}
           </div>
         </Card>
         <Col numColSpan={1} numColSpanLg={2}>
           <Card>
             <Metric>Image Scanner</Metric>
-            <input
-              className="m-4"
-              type="file"
-              accept="image/*"
-              onChange={handleImageUpload}
-            />
+            <input className="m-4" type="file" accept="image/*" />
             <Metric>{recognizedText}</Metric>
+            <Button onClick={handleImageUpload} className="dark:text-white ">
+              Convert to braille
+            </Button>
           </Card>
         </Col>
       </Grid>{" "}
