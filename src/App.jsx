@@ -113,7 +113,7 @@ export default function Home() {
             <Metric className="font-[20px] ml-4"> {result} </Metric>{" "}
           </div>
         </Card>
-        <Col numColSpan={1} numColSpanLg={2}>
+        {/* <Col numColSpan={1} numColSpanLg={2}>
           <Card>
             <Metric>Image Scanner</Metric>
             <input className="m-4" type="file" accept="image/*" />
@@ -122,7 +122,7 @@ export default function Home() {
               Convert to braille
             </Button>
           </Card>
-        </Col>
+        </Col> */}
       </Grid>{" "}
     </div>
   );
